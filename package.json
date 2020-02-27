@@ -10,8 +10,8 @@
     "build": "node scripts/build.js",
     "test": "node scripts/test.js",
     "start:prod": "node scripts/startProd.js",
-    "docker:build": "docker build --rm -t cullenjett/react-ssr-boilerplate .",
-    "docker:start": "docker run --rm -it -p 3000:3000 cullenjett/react-ssr-boilerplate",
+    "docker:build": "docker build --rm -t ssr-dhina-boilerplate .",
+    "docker:start": "docker run --rm -it -p 3000:3000 ssr-dhina-boilerplate",
     "docker": "npm run docker:build && npm run docker:start"
   },
   "dependencies": {
