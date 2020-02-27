@@ -1,4 +1,4 @@
-import fetch from 'isomorphic-unfetch';
+import fetch from "isomorphic-unfetch";
 
 export function httpClient(baseURL) {
   return {
@@ -15,10 +15,10 @@ export function httpClient(baseURL) {
     post: (path, body, options = {}) => {
       return fetch(baseURL + path, {
         ...options,
-        method: 'POST',
+        method: "POST",
         body: JSON.stringify(body),
         headers: {
-          'Content-Type': 'application/json',
+          "Content-Type": "application/json",
           ...options.headers
         }
       }).then(res => {

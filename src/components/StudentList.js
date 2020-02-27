@@ -1,47 +1,51 @@
-import React, { useState } from 'react';
-import Table from '@material-ui/core/Table';
-import TableBody from '@material-ui/core/TableBody';
-import TableCell from '@material-ui/core/TableCell';
-import TableContainer from '@material-ui/core/TableContainer';
-import TableHead from '@material-ui/core/TableHead';
-import TableRow from '@material-ui/core/TableRow';
-import Paper from '@material-ui/core/Paper';
-import Button from '@material-ui/core/Button';
-import ButtonGroup from '@material-ui/core/ButtonGroup';
+import React, { useState } from "react";
+import Table from "@material-ui/core/Table";
+import TableBody from "@material-ui/core/TableBody";
+import TableCell from "@material-ui/core/TableCell";
+import TableContainer from "@material-ui/core/TableContainer";
+import TableHead from "@material-ui/core/TableHead";
+import TableRow from "@material-ui/core/TableRow";
+import Paper from "@material-ui/core/Paper";
+import Button from "@material-ui/core/Button";
+import ButtonGroup from "@material-ui/core/ButtonGroup";
 import { useHistory } from "react-router-dom";
 
-const StudentList = (props) => {
+const StudentList = props => {
   const history = useHistory();
-  console.log(props)
-  const [stulist, setStulist] = useState(props.location.state.studentlistdata)
+  console.log(props);
+  const [stulist, setStulist] = useState(props.location.state.studentlistdata);
 
   const editStudent = (student, id) => {
-    console.log('editStudent------------>', student)
-    history.push('/' + id, student)
-  }
+    console.log("editStudent------------>", student);
+    history.push("/" + id, student);
+  };
 
   const deleteStudent = (name, index) => {
     setStulist(stulist.filter(s => s.name !== name));
-    console.log('---------------spliced ---------->', stulist)
-  }
+    console.log("---------------spliced ---------->", stulist);
+  };
 
   const cancelStudent = () => {
-    console.log("canceled --------------> ")
-    history.push('/');
-  }
+    console.log("canceled --------------> ");
+    history.push("/");
+  };
 
   return (
     <div>
       <Button
-        style={{ float: "right", marginBottom: '20px' }}
+        style={{ float: "right", marginBottom: "20px" }}
         variant="contained"
-        onClick={() => { cancelStudent() }}
-      > Go Back</Button>
+        onClick={() => {
+          cancelStudent();
+        }}
+      >
+        {" "}
+        Go Back
+      </Button>
 
       <TableContainer component={Paper}>
-
         <Table aria-label="simple table">
-          <TableHead style={{ backgroundColor: 'gray', color: 'yellow' }}>
+          <TableHead style={{ backgroundColor: "gray", color: "yellow" }}>
             <TableRow>
               <TableCell align="center">Id</TableCell>
               <TableCell align="center">Name</TableCell>
@@ -62,28 +66,28 @@ const StudentList = (props) => {
                 <TableCell align="center">{row.mark}</TableCell>
                 <TableCell align="center">{row.address}</TableCell>
                 <TableCell align="center">
-
                   <ButtonGroup aria-label="contained primary button group">
                     <Button
                       color="primary"
-                      style={{ marginRight: '30px' }}
+                      style={{ marginRight: "30px" }}
                       variant="contained"
-                      onClick={() => { editStudent(row, index) }}
+                      onClick={() => {
+                        editStudent(row, index);
+                      }}
                     >
                       Edit
-                      </Button>
+                    </Button>
 
                     <Button
                       variant="contained"
                       color="secondary"
-                      onClick={() => { deleteStudent(row.name, index) }}
+                      onClick={() => {
+                        deleteStudent(row.name, index);
+                      }}
                     >
                       Delete
-                      </Button>
-
+                    </Button>
                   </ButtonGroup>
-
-
                 </TableCell>
               </TableRow>
             ))}
@@ -91,8 +95,7 @@ const StudentList = (props) => {
         </Table>
       </TableContainer>
     </div>
-
   );
-}
+};
 
 export default StudentList;

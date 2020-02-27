@@ -1,13 +1,13 @@
-import React, { useState } from 'react';
+import React, { useState } from "react";
 
-import { api } from '../api';
-import { useServerData } from '../state/serverDataContext';
+import { api } from "../api";
+import { useServerData } from "../state/serverDataContext";
 
 const Home = () => {
   const serverTodos = useServerData(data => {
     return data.todos || [];
   });
-  const [text, setText] = useState('');
+  const [text, setText] = useState("");
   const [todos, setTodos] = useState(serverTodos);
 
   return (
@@ -24,7 +24,7 @@ const Home = () => {
 
           api.todos.create(newTodo).then(res => {
             setTodos([...todos, res]);
-            setText('');
+            setText("");
           });
         }}
       >

@@ -1,5 +1,5 @@
-import { httpClient } from './httpClient';
-import { todosApi } from './todosApi';
+import { httpClient } from "./httpClient";
+import { todosApi } from "./todosApi";
 
 export function apiFactory(http) {
   return {
@@ -7,5 +7,5 @@ export function apiFactory(http) {
   };
 }
 
-const http = httpClient('http://localhost:3000');
+const http = httpClient("http://localhost:3000");
 export const api = apiFactory(http);

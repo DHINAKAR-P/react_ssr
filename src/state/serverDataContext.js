@@ -1,4 +1,4 @@
-import React, { useContext, useMemo } from 'react';
+import React, { useContext, useMemo } from "react";
 
 const ServerDataContext = React.createContext();
 
@@ -21,7 +21,7 @@ export const useServerData = fn => {
 
   if (!context) {
     throw new Error(
-      'useServerData() must be a child of <ServerDataProvider />'
+      "useServerData() must be a child of <ServerDataProvider />"
     );
   }
 
