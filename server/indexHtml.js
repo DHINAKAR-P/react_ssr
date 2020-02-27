@@ -1,4 +1,5 @@
 import { getAppEnv } from '../config/env';
+import { css } from '@material-ui/system';
 
 const env = getAppEnv();
 const { NODE_ENV, PUBLIC_URL = '' } = env.raw;
@@ -73,7 +74,7 @@ const jsScripts = bundles => {
     .join('');
 };
 
-export const indexHtml = ({ helmet, serverData, markup, bundles }) => {
+export const indexHtml = ({ helmet, serverData, markup, bundles, css }) => {
   const htmlAttrs = helmet.htmlAttributes.toString();
   const bodyAttrs = helmet.bodyAttributes.toString();
 
@@ -88,11 +89,10 @@ export const indexHtml = ({ helmet, serverData, markup, bundles }) => {
         ${prefetchStyleLinks(bundles)}
         ${helmet.link.toString()}
         ${cssLinks(bundles)}
-        ${helmet.style.toString()}
-
         ${helmet.noscript.toString()}
         ${helmet.script.toString()}
         ${jsScripts(bundles)}
+        <style id="jss-server-side">${css}</style>
       </head>
       <body ${bodyAttrs}>
         <div id="root">${markup}</div>

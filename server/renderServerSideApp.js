@@ -4,11 +4,11 @@ import { StaticRouter } from 'react-router-dom';
 import Helmet from 'react-helmet';
 import Loadable from 'react-loadable';
 import { getBundles } from 'react-loadable/webpack';
-
 import App from '../src/components/App';
 import { fetchDataForRender } from './fetchDataForRender';
 import { indexHtml } from './indexHtml';
 import stats from '../build/react-loadable.json';
+import { ServerStyleSheets } from '@material-ui/core/styles';
 import { ServerDataProvider } from '../src/state/serverDataContext';
 
 const ServerApp = ({ context, data, location }) => {
@@ -22,20 +22,28 @@ const ServerApp = ({ context, data, location }) => {
 };
 
 export const renderServerSideApp = (req, res) => {
+  
+
   Loadable.preloadAll()
     .then(() => fetchDataForRender(ServerApp, req))
     .then(data => renderApp(ServerApp, data, req, res));
 };
 
 function renderApp(ServerApp, data, req, res) {
+  const sheets = new ServerStyleSheets();
   const context = {};
   const modules = [];
 
   const markup = ReactDOMServer.renderToString(
-    <Loadable.Capture report={moduleName => modules.push(moduleName)}>
-      <ServerApp location={req.url} data={data} context={context} />
-    </Loadable.Capture>
+    sheets.collect(
+      <Loadable.Capture report={moduleName => modules.push(moduleName)}>
+        <ServerApp location={req.url} data={data} context={context} />
+      </Loadable.Capture>
+    ),
   );
+
+   // Grab the CSS from our sheets.
+  const css = sheets.toString();
 
   if (context.url) {
     res.redirect(context.url);
@@ -44,7 +52,8 @@ function renderApp(ServerApp, data, req, res) {
       helmet: Helmet.renderStatic(),
       serverData: data,
       bundles: getBundles(stats, modules),
-      markup
+      markup, 
+      css
     });
 
     res.status(200).send(fullMarkup);
